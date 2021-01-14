@@ -1,12 +1,12 @@
-## 初始化
+## 钱包初始化模块
 
-##### 初始化的功能主要有两个：
+### 两个功能
 
 1.创建钱包
 
 2.加载钱包
 
-##### 界面有三个:
+### 三个界面
 
 1.功能选择界面
 
@@ -14,15 +14,15 @@
 
 3.钱包加载界面
 
-界面参考coinwallet:https://coin.space/wallet/?network=bitcoin
+界面参考 Coin.Space: https://coin.space/wallet/?network=bitcoin
 
-#### 创建钱包
+### 创建钱包
 
-![](D:\go\xdlr\81d76ae3ffbdd86c183f3cd93698829.png)
+![](img/new_wallet.png)
 
-#### 加载钱包
+### 加载钱包
 
-![](D:\go\xdlr\0210114150556.png)
+![](img/init_wallet.png)
 
-#### 接口
+### 接口
 
