@@ -1,18 +1,21 @@
-package wallet
+package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/labstack/echo"
+	"wallet/controllers"
+
 	"github.com/labstack/echo/middleware"
 	"os"
 	"os/signal"
 	"time"
-	"wallet/controllers"
 )
 
 func main() {
 	e := echo.New()
 	// 跨域请求配置
+
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{echo.HeaderAccept, echo.HeaderOrigin, echo.HeaderContentType},
@@ -23,15 +26,16 @@ func main() {
 	g := e.Group("/wallet")
 	{
 		g.POST("/register", controllers.Register)
+		g.File("/html", "./html/main.html")
 	}
 	// 网页的静态文件
-	e.File("/", "html/main.html")
 	// 启动服务，平滑关闭
 	go func() {
-		if err := e.Start(":80"); err != nil{
+		if err := e.Start(":1998"); err != nil{
 			e.Logger.Fatal("Fail to star with error:%v", err)
 		}
 	}()
+	fmt.Println("服务启动成功")
 	// 监听停止信号
 	quit := make(chan os.Signal)
 	signal.Notify(quit, os.Interrupt)
