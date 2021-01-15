@@ -24,6 +24,7 @@ type NewWallet struct {
 func Register(c echo.Context) error {
 	w := new(NewWallet)
 	// 因为 echo 的 bind 无绑定检查功能
+	// echo 强制要求 post 的参数写在 body 里，写在 header 里会绑定不上
 	if err := c.Bind(w); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -42,7 +43,7 @@ func Register(c echo.Context) error {
 	HashInfoBuf := sha256.Sum256([]byte(w.Str))
 	// 向监管者提交注册请求，并返回相关信息
 	// [32]byte 是一个数组，要把他转换成切片
-	if resp, err := http.PostForm("http://39.106.173.191：1423/register", url.Values{"name": {w.Name}, "id": {w.Id}, "Hashky": {string(HashInfoBuf[:])}}); err != nil {
+	if resp, err := http.PostForm("http://39.106.173.191:1423/register", url.Values{"name": {w.Name}, "id": {w.Id}, "Hashky": {string(HashInfoBuf[:])}}); err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return c.JSON(http.StatusInternalServerError, err)
 	} else {
